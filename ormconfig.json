@@ -1,0 +1,10 @@
+{
+    "type": "sqlite",
+    "database": "./data/bd.sql",
+    "synchronize": true,
+    "logging": true,
+    "entities": [
+       "models/**/*.ts"
+    ]
+ }
+
