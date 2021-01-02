@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import { AbstractController } from "./AbstractController";
 
-export class UserController extends AbstractController{
+export class GuestsController extends AbstractController{
     protected prefix:string='/user';
 
     hello(){
