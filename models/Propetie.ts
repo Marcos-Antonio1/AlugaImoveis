@@ -1,33 +1,35 @@
 import { ENETDOWN } from "constants";
-import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { ImagesPropetie } from "./ImagesPropetie";
 import { Reservation } from "./Reservation";
+import { User } from "./User";
 
 @Entity()
 export class Propetie extends BaseEntity{
     @PrimaryGeneratedColumn()
-    private PropetieId!:number;
+    PropetieId!:number;
     @Column()
     description?:string;
     @Column()
-    private rua!:string
+     rua!:string
     @Column()
-    private cidade!:string
+     cidade!:string
     @Column()
-    private estado!:string
+     estado!:string
     @Column()
-    private pais!:string
-    @Column()
+     pais!:string
+    @Column({nullable:false})
     longitude?:string
-    @Column()
+    @Column({nullable:false})
     latitude?:string
     @Column()
-    private vagas!:number
+     vagas!:number
     @Column()
-    private preco_diaria!:number
+     preco_diaria!:number
     @OneToMany(()=>ImagesPropetie,imagens=>imagens.pro)
     imagens?:ImagesPropetie[];
     @OneToMany(() => Reservation, reservation => reservation.pro)
-    public reservation!: Reservation[];
-    
+    public reservation?: Reservation[];
+    @ManyToOne(() => User, user => user.pro)
+    user!: User;
 }

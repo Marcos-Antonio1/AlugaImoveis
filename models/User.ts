@@ -1,6 +1,7 @@
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Reservation } from "./Reservation";
 import 'reflect-metadata'
+import { Propetie } from "./Propetie";
 
 @Entity()
 export class User extends BaseEntity{
@@ -26,5 +27,7 @@ export class User extends BaseEntity{
      guest?:boolean
     @OneToMany(() => Reservation, reservation => reservation.user)
     public reservation!: Reservation[];
+    @OneToMany(() => Propetie, pro => pro.user)
+    pro?: Propetie[];
     
 }

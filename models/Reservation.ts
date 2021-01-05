@@ -5,20 +5,20 @@ import { User } from "./User"
 @Entity()
 export class Reservation extends BaseEntity {
     @PrimaryGeneratedColumn()
-    public ReservationId!:number    
+     ReservationId!:number    
     @Column()
-    public data_entrada!:string
+     data_entrada!:string
     @Column()
-    public data_saida!:string
+     data_saida!:string
     @Column()
-    public avaliacao?:string
+     avaliacao?:string
     @Column()
-    public nota?:string
+     nota?:string
 
     @ManyToOne(() => Propetie, pro => pro.reservation)
-    public pro!: Propetie
+     pro!: Propetie
 
     @ManyToOne(()=>User,user=>user.reservation)
-    public user!:User
+     user!:User
 
 }
