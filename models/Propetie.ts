@@ -26,7 +26,9 @@ export class Propetie extends BaseEntity{
      vagas!:number
     @Column()
      preco_diaria!:number
-    @OneToMany(()=>ImagesPropetie,imagens=>imagens.pro)
+    @OneToMany(()=>ImagesPropetie,imagens=>imagens.pro,{
+        eager:true
+    })
     imagens?:ImagesPropetie[];
     @OneToMany(() => Reservation, reservation => reservation.pro)
     public reservation?: Reservation[];

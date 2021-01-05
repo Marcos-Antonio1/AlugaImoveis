@@ -55,6 +55,28 @@ export class HotessController extends AbstractController {
             } 
         }
     }
+    listPropeties(){
+        return async (req:Request,res:Response,next:NextFunction)=>{
+            try{
+                let user:User|undefined = new User()
+                user= await User.findOne({UserId: req.body.id})
+                if(user){
+                    res.send(user.pro)
+                }
+            }catch(errr){
+                res.status(502).send({msg:errr})
+            }
+        }
+    }
+    detailProteties(){
+        return async (req:Request,res:Response,next:NextFunction)=>{
+            try{
+               res.send(await Propetie.find({PropetieId : req.body.id}))
+            }catch(errr){
+                res.status(502).send({msg:errr})
+            }
+        }
+    }
     updatePropetie(){
         return async (req:Request,res:Response,next:NextFunction)=>{
             let prop:Propetie|undefined= new Propetie()
@@ -84,14 +106,14 @@ export class HotessController extends AbstractController {
             }
         }
     }
-    listPropeties(){
-
-    }
+    
     registerRoutes(){
         this.forRoute('/').get(this.hello())
         this.forRoute('/update').put(this.updateHotess())
         this.forRoute('/resgister-propetie').post(this.registerPropetie())
+        this.forRoute('/list').get(this.listPropeties())
         this.forRoute('/update-propetie').put(this.updatePropetie())
         this.forRoute('/delete-propetie').delete(this.deletePropetie())
+        this.forRoute('/detail-propetie').get(this.detailProteties())
     }
 }

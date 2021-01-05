@@ -27,7 +27,9 @@ export class User extends BaseEntity{
      guest?:boolean
     @OneToMany(() => Reservation, reservation => reservation.user)
     public reservation!: Reservation[];
-    @OneToMany(() => Propetie, pro => pro.user)
+    @OneToMany(() => Propetie, pro => pro.user,{
+        eager:true
+    })
     pro?: Propetie[];
     
 }
