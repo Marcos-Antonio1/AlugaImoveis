@@ -12,7 +12,7 @@ export abstract class AbstractController implements Icontroller{
         return this;
     }
     forRoute(path:string):IRoute{
-        return this.app?.route(`${this.prefix}/`) as IRoute;
+        return this.app?.route(`${this.prefix}${path}/`) as IRoute;
     }
     abstract registerRoutes():void
 

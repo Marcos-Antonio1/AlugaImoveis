@@ -5,7 +5,7 @@ import { User } from "./User"
 @Entity()
 export class Reservation extends BaseEntity {
     @PrimaryGeneratedColumn()
-    public ReservationId!:number
+    public ReservationId!:number    
     @Column()
     public data_entrada!:string
     @Column()
