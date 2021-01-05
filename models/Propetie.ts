@@ -32,6 +32,6 @@ export class Propetie extends BaseEntity{
     imagens?:ImagesPropetie[];
     @OneToMany(() => Reservation, reservation => reservation.pro)
     public reservation?: Reservation[];
-    @ManyToOne(() => User, user => user.pro)
+     @ManyToOne(() => User, user => user.pro)
     user!: User;
 }

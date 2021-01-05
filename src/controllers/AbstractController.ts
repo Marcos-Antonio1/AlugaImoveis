@@ -5,7 +5,7 @@ import 'reflect-metadata';
 import { Connection, getConnection } from "typeorm";
 @injectable()
 export abstract class AbstractController implements Icontroller{
-    private app?:Application;
+    protected app?:Application;
     protected abstract  prefix:string;
 
     forApp(app:Application):Icontroller{

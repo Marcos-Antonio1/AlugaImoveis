@@ -9,11 +9,13 @@ export class User extends BaseEntity{
     @PrimaryGeneratedColumn()
      UserId?:number;
     @Column()
+    email?:string
+    @Column()
      name?:string
     @Column()
      last_name?:string
     @Column()
-     password?:string
+    password?:string
     @Column()
     born_date?:string
     @Column()
