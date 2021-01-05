@@ -1,7 +1,8 @@
-import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Reservation } from "./Reservation";
 import 'reflect-metadata'
 import { Propetie } from "./Propetie";
+import  EncryptPassword   from '../EncryptPassword';
 
 @Entity()
 export class User extends BaseEntity{
@@ -31,5 +32,12 @@ export class User extends BaseEntity{
         eager:true
     })
     pro?: Propetie[];
+    @BeforeUpdate()
+    @BeforeInsert()
+    async cryptoPassword(){
+        if(this.password){
+            this.password=await EncryptPassword(this.password)
+        }
+    }
     
 }

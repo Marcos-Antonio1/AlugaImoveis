@@ -1,5 +1,6 @@
 import { Application, IRoute, NextFunction, Response, Request } from "express";
 import { injectable } from "inversify";
+import { Propetie } from "../../models/Propetie";
 import { User } from "../../models/User";
 import { AbstractController } from "./AbstractController";
 
@@ -31,8 +32,14 @@ export class IndexController extends AbstractController{
             }      
         }
     }
+    listPropetieHome(){
+        return async (req:Request,res:Response,next:NextFunction)=>{
+            res.status(200).send(await Propetie.find())
+        }
+    }
     registerRoutes(){
         this.forRoute('/').get(this.hello())
         this.forRoute('/register').post(this.register())
+        this.forRoute('/home').get(this.listPropetieHome())
     }
 }
