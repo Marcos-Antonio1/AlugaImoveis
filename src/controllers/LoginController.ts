@@ -10,6 +10,7 @@ export class LoginController extends AbstractController {
     Login(){
         return async (req:Request,res:Response,next:NextFunction)=>{
             let user:User |undefined = await User.findOne({email:req.body.email})
+            console.log(user)
             let isMatch;
             if(user?.password){
                  isMatch= await bcrypt.compareSync(req.body.password,user?.password)
@@ -20,7 +21,7 @@ export class LoginController extends AbstractController {
                 if(isMatch){
                     let id= user.UserId;
                     const token = jwt.sign({ id}, process.env.SECRET, {
-                        expiresIn: 300 // expires in 5min
+                        expiresIn: 3000 // expires in 5min
                       });
                        res.status(200).send({ auth: true, token: token });
                 }else{
@@ -29,9 +30,15 @@ export class LoginController extends AbstractController {
             }else{
                 res.status(406).send({msg:"Email não cadastrado"})
             }
-        }    
+        }       
+    }
+    logout(){
+        return (req:Request,res:Response,next:NextFunction)=>{
+            res.send({auth: false, token: null })
+        }
     }
     registerRoutes(){
-        this.forRoute('').get(this.Login())
+        this.forRoute('').post(this.Login())
+        this.forRoute('/logout').get(this.logout())
     }
 }
