@@ -9,6 +9,8 @@ export class Propetie extends BaseEntity{
     @PrimaryGeneratedColumn()
     PropetieId!:number;
     @Column()
+    nome?:string
+    @Column()
     description?:string;
     @Column()
      rua!:string

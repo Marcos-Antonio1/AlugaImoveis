@@ -15,9 +15,9 @@ export class IndexController extends AbstractController{
     register(){
         return async (req:Request,res:Response,next:NextFunction)=>{
            if( await User.findOne({email:req.body.email})){
-             res.send({msg:"esse Email já esta cadastrado no sistema"})
+             return res.send({msg:"esse Email já esta cadastrado no sistema"})
            }else if( await User.findOne({cpf:req.body.cpf})){
-            res.send({msg:"Cpf  já esta cadastrado no sistema"})
+            return res.send({msg:"Cpf  já esta cadastrado no sistema"})
            }else{
             let user= new User();
             user.name= req.body.name
@@ -32,9 +32,9 @@ export class IndexController extends AbstractController{
             user.email=req.body.email
             try{
                 await user.save()
-                res.status(201).send({msg: "usuário cadastrado com sucesso"})
+                res.status(201).send({msg: "usuário cadastrado com sucesso",create:true})
             }catch(erro:any){
-                res.send(400).send({msg:"houve um erro ao cadastrar o usuário"})
+                res.send(400).send({msg:"houve um erro ao cadastrar o usuário",create:false})
             }  
            }    
         }

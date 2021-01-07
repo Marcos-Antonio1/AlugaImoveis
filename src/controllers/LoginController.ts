@@ -23,12 +23,12 @@ export class LoginController extends AbstractController {
                     const token = jwt.sign({ id}, process.env.SECRET, {
                         expiresIn: 3000 // expires in 5min
                       });
-                       res.status(200).send({ auth: true, token: token });
+                       res.status(200).send({ auth: true, token: token ,usuario:{user} });
                 }else{
-                    res.status(406).send({msg:"senha inválida"})
+                    res.send({msg:"senha inválida"})
                 }
             }else{
-                res.status(406).send({msg:"Email não cadastrado"})
+                res.send({msg:"Email não cadastrado"})
             }
         }       
     }

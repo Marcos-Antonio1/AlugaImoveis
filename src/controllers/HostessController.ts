@@ -32,6 +32,7 @@ export class HotessController extends AbstractController {
             let propetie: Propetie= new Propetie()
             let user: User | undefined =new User()
             let img: ImagesPropetie= new ImagesPropetie()
+            console.log('vim aqui')
             propetie.description=req.body.description
             propetie.rua =req.body.rua
             propetie.cidade=req.body.rua
@@ -41,12 +42,13 @@ export class HotessController extends AbstractController {
             propetie.longitude=req.body.longitude
             propetie.vagas=req.body.vagas
             propetie.preco_diaria=req.body.preco_diaria
-            console.log(propetie)
+            propetie.nome=req.body.nome;  
              try{  
                 propetie.save()
                 user= await User.findOne({UserId: req.body.id})
+                console.log(user)
                 if(user){
-                    user.pro=[propetie]
+                    user.pro?.push(propetie)
                      user.save()
                     res.status(201).send({msg:"Imóvel cadastrado com sucesso"})
                 }
@@ -59,7 +61,10 @@ export class HotessController extends AbstractController {
         return async (req:Request,res:Response,next:NextFunction)=>{
             try{
                 let user:User|undefined = new User()
-                user= await User.findOne({UserId: req.body.id})
+                console.log(req)
+                console.log(req.params)
+                let id:number=parseInt(req.params.id);
+                user= await User.findOne({UserId: id})
                 if(user){
                     res.send(user.pro)
                 }
@@ -111,7 +116,7 @@ export class HotessController extends AbstractController {
         this.forRoute('/').get(this.hello())
         this.forRoute('/update').put(this.updateHotess())
         this.forRoute('/resgister-propetie').post(this.registerPropetie())
-        this.forRoute('/list').get(this.listPropeties())
+        this.forRoute('/list/:id').get(this.listPropeties())
         this.forRoute('/update-propetie').put(this.updatePropetie())
         this.forRoute('/delete-propetie').delete(this.deletePropetie())
         this.forRoute('/detail-propetie').get(this.detailProteties())
